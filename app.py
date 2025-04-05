@@ -5,13 +5,13 @@ import matplotlib.pyplot as plt
 import streamlit as st
 
 def create_database():
-    db = mysql.connector.connect(host="localhost", user="root", password="birthday18")
+    db = mysql.connector.connect(host="localhost", user="root", password="**your sql password**")
     cursor = db.cursor()
-    cursor.execute("CREATE DATABASE IF NOT EXISTS edunetproject")
+    cursor.execute("CREATE DATABASE IF NOT EXISTS project")
     db.close()
 
 def create_tables():
-    db = mysql.connector.connect(host="localhost", user="root", password="birthday18", database="edunetproject")
+    db = mysql.connector.connect(host="localhost", user="root", password="**your sql password**", database="project")
     cursor = db.cursor()
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS stocks (
@@ -41,7 +41,7 @@ def fetch_stock_data(symbol, period="1mo"):
     return data
 
 def insert_stock_data(symbol, name, data):
-    db = mysql.connector.connect(host="localhost", user="root", password="birthday18", database="edunetproject")
+    db = mysql.connector.connect(host="localhost", user="root", password="**your sql password**", database="project")
     cursor = db.cursor()
     cursor.execute("INSERT INTO stocks (symbol, name) VALUES (%s, %s) ON DUPLICATE KEY UPDATE name=name", (symbol, name))
     db.commit()
@@ -59,7 +59,7 @@ def insert_stock_data(symbol, name, data):
     db.close()
 
 def fetch_from_mysql(symbol):
-    db = mysql.connector.connect(host="localhost", user="root", password="birthday18", database="edunetproject")
+    db = mysql.connector.connect(host="localhost", user="root", password="**your sql password**", database="project")
     cursor = db.cursor()
     cursor.execute("SELECT id FROM stocks WHERE symbol=%s", (symbol,))
     stock_id = cursor.fetchone()[0]
